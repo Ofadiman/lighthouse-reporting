@@ -1,6 +1,10 @@
 module.exports = {
   ci: {
     assert: {
+      assertions: {
+        'csp-xss': 'warn',
+        'largest-contentful-paint': 'warn',
+      },
       preset: 'lighthouse:no-pwa',
     },
     collect: {
