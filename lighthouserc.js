@@ -4,6 +4,9 @@ module.exports = {
       assertions: {
         'csp-xss': 'warn',
         'largest-contentful-paint': 'warn',
+        'resource-summary:document:size': ['warn', { maxNumericValue: 100_000 }],
+        'resource-summary:font:count': ['warn', { maxNumericValue: 1 }],
+        'resource-summary:third-party:count': ['warn', { maxNumericValue: 5 }],
       },
       preset: 'lighthouse:no-pwa',
     },
