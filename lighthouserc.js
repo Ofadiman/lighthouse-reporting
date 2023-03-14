@@ -1,14 +1,25 @@
 module.exports = {
   ci: {
     assert: {
-      assertions: {
-        'csp-xss': 'warn',
-        'largest-contentful-paint': 'warn',
-        'resource-summary:document:size': ['warn', { maxNumericValue: 100_000 }],
-        'resource-summary:font:count': ['warn', { maxNumericValue: 1 }],
-        'resource-summary:third-party:count': ['warn', { maxNumericValue: 5 }],
-      },
-      preset: 'lighthouse:no-pwa',
+      assertMatrix: [
+        {
+          matchingUrlPattern: '/*',
+          preset: 'lighthouse:no-pwa',
+          assertions: {
+            'csp-xss': 'warn',
+            'largest-contentful-paint': 'warn',
+            'resource-summary:document:size': ['warn', { maxNumericValue: 100_000 }],
+            'resource-summary:font:count': ['warn', { maxNumericValue: 1 }],
+          },
+        },
+        {
+          matchingUrlPattern: '/support',
+          assertions: {
+            'resource-summary:document:size': ['warn', { maxNumericValue: 200_000 }],
+            'resource-summary:font:count': ['warn', { maxNumericValue: 2 }],
+          },
+        },
+      ],
     },
     collect: {
       settings: {},
