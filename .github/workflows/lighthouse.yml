@@ -1,0 +1,29 @@
+name: LighthouseCI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.3.0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.29.1
+      - name: Setup Node.js
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 18.15.0
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build project
+        run: pnpm build
+      - name: Run lighthouse
+        run: pnpm lhci autorun
