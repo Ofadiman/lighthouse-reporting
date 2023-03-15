@@ -1,0 +1,5 @@
+.dockerignore
+.gitignore
+Dockerfile
+image.sh
+node_modules
