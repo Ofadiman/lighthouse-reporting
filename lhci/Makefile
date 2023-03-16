@@ -1,3 +1,5 @@
+now := `date +%s`
+
 version:
 	curl -u "admin:password" localhost:9001/version
 	
@@ -6,4 +8,8 @@ build:
 	
 wizard:
 	pnpm lhci wizard --basicAuth.username=admin --basicAuth.password=password
+	
+fake_git_commit_hash:
+	@echo "Now is $(now)"
+	@echo "$(now)" | sha1sum | cut -b -40
 	
