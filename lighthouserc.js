@@ -34,7 +34,9 @@ module.exports = {
       startServerReadyTimeout: 500,
     },
     upload: {
-      target: 'temporary-public-storage',
+      target: 'lhci',
+      serverBaseUrl: 'https://lhci.ofadiman.dev',
+      token: 'f7445a36-8f63-471d-8234-b5a583e3e93b',
     },
   },
 }
