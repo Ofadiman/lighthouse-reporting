@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+env:
+  TZ: Europe/Warsaw
+
 jobs:
   lighthouse:
     runs-on: ubuntu-22.04
@@ -17,11 +20,11 @@ jobs:
             ancestor_hash=$(echo "$(date +%s)" | sha1sum | cut -b -40)
             iso_timestamp=$(date -Iseconds)
             human_readable_timestamp=$(date "+%d.%m.%Y, %H:%M")
-          
+
             echo "Fake git commit hash set to ${commit_hash}"
             echo "Fake git ancestor hash set to ${ancestor_hash}"
             echo "ISO timestamp is ${iso_timestamp}"
-          
+
             echo "LHCI_BUILD_CONTEXT__GIT_REMOTE=git@github.com:Ofadiman/lighthouse-reporting.git" >> $GITHUB_ENV
             echo "LHCI_BUILD_CONTEXT__GITHUB_REPO_SLUG=Ofadiman/lighthouse-reporting" >> $GITHUB_ENV
             echo "LHCI_BUILD_CONTEXT__CURRENT_HASH=${commit_hash}" >> $GITHUB_ENV
