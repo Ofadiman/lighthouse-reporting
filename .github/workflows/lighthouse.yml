@@ -13,10 +13,24 @@ jobs:
       - name: Set env
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            fake_git_commit_hash=$(echo "$(date +%s)" | sha1sum | cut -b -40)
-            echo "Fake git commit hash set to ${fake_git_commit_hash}"
-            echo "LHCI_BUILD_CONTEXT__CURRENT_HASH=${fake_git_commit_hash}" >> $GITHUB_ENV
-            echo "LHCI_BUILD_CONTEXT__COMMIT_MESSAGE=manual build" >> $GITHUB_ENV
+            commit_hash=$(echo "$(date +%s)" | sha1sum | cut -b -40)
+            ancestor_hash=$(echo "$(date +%s)" | sha1sum | cut -b -40)
+            iso_timestamp=$(date -Iseconds)
+          
+            echo "Fake git commit hash set to ${commit_hash}"
+            echo "Fake git ancestor hash set to ${ancestor_hash}"
+            echo "ISO timestamp is ${iso_timestamp}"
+          
+            echo "LHCI_BUILD_CONTEXT__GIT_REMOTE=git@github.com:Ofadiman/lighthouse-reporting.git" >> $GITHUB_ENV
+            echo "LHCI_BUILD_CONTEXT__GITHUB_REPO_SLUG=Ofadiman/lighthouse-reporting" >> $GITHUB_ENV
+            echo "LHCI_BUILD_CONTEXT__CURRENT_HASH=${commit_hash}" >> $GITHUB_ENV
+            echo "LHCI_BUILD_CONTEXT__ANCESTOR_HASH=${ancestor_hash}" >> $GITHUB_ENV
+            echo "LHCI_BUILD_CONTEXT__COMMIT_TIME=${iso_timestamp}" >> $GITHUB_ENV
+            echo "LHCI_BUILD_CONTEXT__CURRENT_BRANCH=main" >> $GITHUB_ENV
+            echo "LHCI_BUILD_CONTEXT__COMMIT_MESSAGE=workflow dispatch" >> $GITHUB_ENV
+            echo "LHCI_BUILD_CONTEXT__AUTHOR=github[bot]" >> $GITHUB_ENV
+            echo "LHCI_BUILD_CONTEXT__AVATAR_URL=https://github.com/favicon.ico" >> $GITHUB_ENV
+            echo "LHCI_BUILD_CONTEXT__EXTERNAL_BUILD_URL=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_ENV
           fi
       - name: Checkout code
         uses: actions/checkout@v3.3.0
