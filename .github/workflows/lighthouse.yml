@@ -16,6 +16,7 @@ jobs:
             fake_git_commit_hash=$(echo "$(date +%s)" | sha1sum | cut -b -40)
             echo "Fake git commit hash set to ${fake_git_commit_hash}"
             echo "LHCI_BUILD_CONTEXT__CURRENT_HASH=${fake_git_commit_hash}" >> $GITHUB_ENV
+            echo "LHCI_BUILD_CONTEXT__COMMIT_MESSAGE=manual build" >> $GITHUB_ENV
           fi
       - name: Checkout code
         uses: actions/checkout@v3.3.0
