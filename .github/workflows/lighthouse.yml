@@ -25,5 +25,9 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build project
         run: pnpm build
-      - name: Run lighthouse
-        run: pnpm lhci autorun
+      - name: Collect lighthouse reports
+        run: pnpm lhci collect
+      - name: Assert on lighthouse reports
+        run: pnpm lhci assert
+      - name: Upload lighthouse reports to lhci server
+        run: pnpm lhci upload --basicAuth.username=admin --basicAuth.password=password
